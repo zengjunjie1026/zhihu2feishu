@@ -25,24 +25,28 @@ btn.onmouseenter = () => btn.style.opacity = '1';
 btn.onmouseleave = () => btn.style.opacity = '0.9';
 
 btn.onclick = async () => {
-  const answerEls = document.querySelectorAll('.AnswerItem');
-  let allText = '';
-  const answers: string[] = [];
-  answerEls.forEach(el => {
-    const text = (el as HTMLElement).innerText;
-    allText += text + '\n\n';
-    if (text.trim()) answers.push(text.trim());
-  });
-  if (allText.trim()) {
-    await navigator.clipboard.writeText(allText.trim());
-    // 存储逐条答案到chrome.storage.local
-    chrome.storage.local.set({ zh_copied_answers: answers });
-    chrome.runtime.sendMessage({ type: 'ZH_ANSWERS', answers });
-    btn.innerText = '已复制!';
+  try {
+    const answerEls = document.querySelectorAll('.AnswerItem');
+    let allText = '';
+    const answers: string[] = [];
+    answerEls.forEach(el => {
+      const text = (el as HTMLElement).innerText;
+      allText += text + '\n\n';
+      if (text.trim()) answers.push(text.trim());
+    });
+    if (allText.trim()) {
+      await navigator.clipboard.writeText(allText.trim());
+      chrome.storage.local.set({ zh_copied_answers: answers });
+      btn.innerText = '已复制!';
+      setTimeout(() => { btn.innerText = '复制答案'; }, 1500);
+    } else {
+      btn.innerText = '未找到答案';
+      setTimeout(() => { btn.innerText = '复制答案'; }, 1500);
+    }
+  } catch (err) {
+    btn.innerText = '复制失败';
     setTimeout(() => { btn.innerText = '复制答案'; }, 1500);
-  } else {
-    btn.innerText = '未找到答案';
-    setTimeout(() => { btn.innerText = '复制答案'; }, 1500);
+    console.error('复制或存储失败:', err);
   }
 };
 
