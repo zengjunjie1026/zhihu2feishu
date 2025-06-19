@@ -71,6 +71,18 @@ const Popup = () => {
     });
   };
 
+  const setZhihuQuestionTitle = async () => {
+    const [tab] = await chrome.tabs.query({ currentWindow: true, active: true });
+    await chrome.scripting.executeScript({
+      target: { tabId: tab.id! },
+      func: () => {
+        document.querySelectorAll('.QuestionHeader-title').forEach(el => {
+          el.textContent = 'xxx项目文档';
+        });
+      },
+    });
+  };
+
   return (
     <div className={cn('App', isLight ? 'bg-slate-50' : 'bg-gray-800')}>
       <header className={cn('App-header', isLight ? 'text-gray-900' : 'text-gray-100')}>
@@ -114,6 +126,15 @@ const Popup = () => {
           onClick={setZhihuVarBlack}
         >
           变黑知乎变量
+        </button>
+        <button
+          className={cn(
+            'mt-4 rounded px-4 py-1 font-bold shadow hover:scale-105',
+            isLight ? 'bg-yellow-200 text-black' : 'bg-yellow-600 text-white',
+          )}
+          onClick={setZhihuQuestionTitle}
+        >
+          修改知乎标题
         </button>
         <ToggleButton>{t('toggleTheme')}</ToggleButton>
       </header>
