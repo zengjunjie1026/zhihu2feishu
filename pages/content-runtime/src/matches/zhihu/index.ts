@@ -52,7 +52,11 @@
 
   // 移除侧栏
   function removeSidebar() {
-    document.querySelectorAll('.QuestionHeader-side, .Question-sideColumn').forEach(el => {
+    document.querySelectorAll('.QuestionHeader-side').forEach(el => {
+      el.remove();
+    });
+
+    document.querySelectorAll('.Question-sideColumn').forEach(el => {
       el.remove();
     });
   }
