@@ -61,6 +61,16 @@ const Popup = () => {
     });
   };
 
+  const setZhihuVarBlack = async () => {
+    const [tab] = await chrome.tabs.query({ currentWindow: true, active: true });
+    await chrome.scripting.executeScript({
+      target: { tabId: tab.id! },
+      func: () => {
+        document.documentElement.style.setProperty('--GBL01A', '#000');
+      },
+    });
+  };
+
   return (
     <div className={cn('App', isLight ? 'bg-slate-50' : 'bg-gray-800')}>
       <header className={cn('App-header', isLight ? 'text-gray-900' : 'text-gray-100')}>
@@ -95,6 +105,15 @@ const Popup = () => {
           onClick={replaceZhihuLogo}
         >
           替换知乎Logo
+        </button>
+        <button
+          className={cn(
+            'mt-4 rounded px-4 py-1 font-bold shadow hover:scale-105',
+            isLight ? 'bg-black text-white' : 'bg-black text-white',
+          )}
+          onClick={setZhihuVarBlack}
+        >
+          变黑知乎变量
         </button>
         <ToggleButton>{t('toggleTheme')}</ToggleButton>
       </header>
