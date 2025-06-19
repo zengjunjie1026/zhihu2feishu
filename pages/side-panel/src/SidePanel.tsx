@@ -12,14 +12,15 @@ const SidePanel = () => {
   const [answers, setAnswers] = useState<string[]>([]);
 
   useEffect(() => {
-    // 初次加载时读取
+    console.log('SidePanel mounted');
     chrome.storage.local.get('zh_copied_answers', (result) => {
+      console.log('side panel storage:', result);
       if (Array.isArray(result.zh_copied_answers)) {
         setAnswers(result.zh_copied_answers);
       }
     });
-    // 监听 storage 变化
     function handleStorage(changes: any, area: string) {
+      console.log('storage changed', changes, area);
       if (area === 'local' && changes.zh_copied_answers) {
         setAnswers(changes.zh_copied_answers.newValue || []);
       }
@@ -27,6 +28,8 @@ const SidePanel = () => {
     chrome.storage.onChanged.addListener(handleStorage);
     return () => chrome.storage.onChanged.removeListener(handleStorage);
   }, []);
+
+  console.log('Rendering SidePanel', answers);
 
   const goGithubSite = () => chrome.tabs.create(PROJECT_URL_OBJECT);
 
