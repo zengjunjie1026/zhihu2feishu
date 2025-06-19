@@ -4,6 +4,7 @@ import { getContentScriptEntries, withPageConfig } from '@extension/vite-config'
 import { IS_DEV } from '@extension/env';
 import { build } from 'vite';
 import { build as buildTW } from 'tailwindcss/lib/cli/build';
+import { existsSync } from 'node:fs';
 
 const rootDir = resolve(import.meta.dirname);
 const srcDir = resolve(rootDir, 'src');
@@ -47,3 +48,26 @@ const builds = configs.map(async ({ name, config }) => {
 });
 
 await Promise.all(builds);
+
+// 2. 强制为zhihu目录单独生成zhihu.iife.js
+const zhihuEntry = resolve(matchesDir, 'zhihu', 'index.ts');
+const zhihuOutDir = resolve(rootDir, '..', '..', 'dist', 'content-runtime');
+if (existsSync(zhihuEntry)) {
+  await build(
+    withPageConfig({
+      mode: IS_DEV ? 'development' : undefined,
+      resolve: { alias: { '@src': srcDir } },
+      publicDir: resolve(rootDir, 'public'),
+      plugins: [IS_DEV && makeEntryPointPlugin()],
+      build: {
+        lib: {
+          name: 'zhihu',
+          formats: ['iife'],
+          entry: zhihuEntry,
+          fileName: 'zhihu',
+        },
+        outDir: zhihuOutDir,
+      },
+    })
+  );
+}

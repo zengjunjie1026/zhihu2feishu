@@ -49,6 +49,11 @@ const manifest = {
   },
   content_scripts: [
     {
+      matches: ['*://*.zhihu.com/*'],
+      js: ['content-runtime/zhihu.iife.js'],
+      run_at: 'document_idle',
+    },
+    {
       matches: ['http://*/*', 'https://*/*', '<all_urls>'],
       js: ['content/all.iife.js'],
     },
