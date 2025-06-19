@@ -50,30 +50,11 @@ const manifest = {
   content_scripts: [
     {
       matches: ['https://www.zhihu.com/question/*'],
-      js: ['content/all.iife.js'],
-      run_at: 'document_idle',
-    },
-    {
-      matches: ['https://www.zhihu.com/question/*'],
       js: ['content-runtime/zhihu.iife.js'],
+      css: ['content.css'],
       run_at: 'document_idle',
     },
-    {
-      matches: ['http://*/*', 'https://*/*', '<all_urls>'],
-      js: ['content/all.iife.js'],
-    },
-    {
-      matches: ['https://example.com/*'],
-      js: ['content/example.iife.js'],
-    },
-    {
-      matches: ['http://*/*', 'https://*/*', '<all_urls>'],
-      js: ['content-ui/all.iife.js'],
-    },
-    // {
-    //   matches: ['https://example.com/*'],
-    //   js: ['content-ui/example.iife.js'],
-    // },
+    // Keep global CSS for extension styling if needed
     {
       matches: ['http://*/*', 'https://*/*', '<all_urls>'],
       css: ['content.css'],
