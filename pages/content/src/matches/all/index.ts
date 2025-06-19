@@ -26,7 +26,7 @@ btn.onmouseleave = () => btn.style.opacity = '0.9';
 
 btn.onclick = async () => {
   try {
-    const answerEls = document.querySelectorAll('.AnswerItem');
+    const answerEls = document.querySelectorAll('[class*=RichContent]');
     const answers: string[] = [];
     answerEls.forEach(el => {
       const text = (el as HTMLElement).innerText;
