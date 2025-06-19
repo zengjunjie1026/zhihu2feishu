@@ -26,7 +26,7 @@
     hideAnswerMedia();
     
     // 修改背景颜色
-    changeBgColor();
+    // changeBgColor();
     
     // 替换Logo
     replaceLogo();
