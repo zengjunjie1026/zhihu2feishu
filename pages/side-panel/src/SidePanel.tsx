@@ -41,16 +41,18 @@ const SidePanel = () => {
         </p>
         <ToggleButton onClick={exampleThemeStorage.toggle}>{t('toggleTheme')}</ToggleButton>
       </header>
-      {answers.length > 0 && (
-        <div style={{ marginTop: 24, textAlign: 'left', maxWidth: 600 }}>
-          <h3>已复制的答案：</h3>
+      {/* 答案渲染区，含原始输出和列表 */}
+      <div style={{ marginTop: 24, textAlign: 'left', maxWidth: 600, border: '1px solid red' }}>
+        <h3>已复制的答案：</h3>
+        <pre>{JSON.stringify(answers, null, 2)}</pre>
+        {answers.length > 0 && (
           <ul style={{ paddingLeft: 20 }}>
             {answers.map((ans, idx) => (
               <li key={idx} style={{ marginBottom: 12, background: isLight ? '#f1f5f9' : '#222', padding: 12, borderRadius: 6 }}>{ans}</li>
             ))}
           </ul>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
