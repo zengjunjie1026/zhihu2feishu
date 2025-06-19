@@ -35,7 +35,8 @@ btn.onclick = async () => {
   });
   if (allText.trim()) {
     await navigator.clipboard.writeText(allText.trim());
-    // 发送逐条答案到side-panel
+    // 存储逐条答案到chrome.storage.local
+    chrome.storage.local.set({ zh_copied_answers: answers });
     chrome.runtime.sendMessage({ type: 'ZH_ANSWERS', answers });
     btn.innerText = '已复制!';
     setTimeout(() => { btn.innerText = '复制答案'; }, 1500);

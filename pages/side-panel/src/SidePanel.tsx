@@ -12,15 +12,20 @@ const SidePanel = () => {
   const [answers, setAnswers] = useState<string[]>([]);
 
   useEffect(() => {
-    function handleMessage(message: any) {
-      if (message && message.type === 'ZH_ANSWERS' && Array.isArray(message.answers)) {
-        setAnswers(message.answers);
+    // 初次加载时读取
+    chrome.storage.local.get('zh_copied_answers', (result) => {
+      if (Array.isArray(result.zh_copied_answers)) {
+        setAnswers(result.zh_copied_answers);
+      }
+    });
+    // 监听 storage 变化
+    function handleStorage(changes: any, area: string) {
+      if (area === 'local' && changes.zh_copied_answers) {
+        setAnswers(changes.zh_copied_answers.newValue || []);
       }
     }
-    chrome.runtime.onMessage.addListener(handleMessage);
-    return () => {
-      chrome.runtime.onMessage.removeListener(handleMessage);
-    };
+    chrome.storage.onChanged.addListener(handleStorage);
+    return () => chrome.storage.onChanged.removeListener(handleStorage);
   }, []);
 
   const goGithubSite = () => chrome.tabs.create(PROJECT_URL_OBJECT);
