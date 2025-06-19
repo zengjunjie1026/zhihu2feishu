@@ -27,11 +27,16 @@ btn.onmouseleave = () => btn.style.opacity = '0.9';
 btn.onclick = async () => {
   const answerEls = document.querySelectorAll('.AnswerItem');
   let allText = '';
+  const answers: string[] = [];
   answerEls.forEach(el => {
-    allText += (el as HTMLElement).innerText + '\n\n';
+    const text = (el as HTMLElement).innerText;
+    allText += text + '\n\n';
+    if (text.trim()) answers.push(text.trim());
   });
   if (allText.trim()) {
     await navigator.clipboard.writeText(allText.trim());
+    // 发送逐条答案到side-panel
+    chrome.runtime.sendMessage({ type: 'ZH_ANSWERS', answers });
     btn.innerText = '已复制!';
     setTimeout(() => { btn.innerText = '复制答案'; }, 1500);
   } else {
