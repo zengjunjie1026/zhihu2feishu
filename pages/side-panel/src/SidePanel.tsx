@@ -35,7 +35,7 @@ const SidePanel = () => {
 
   return (
     <div className={cn('App', isLight ? 'bg-slate-50' : 'bg-gray-800')}>
-      {/* <header className={cn('App-header', isLight ? 'text-gray-900' : 'text-gray-100')}>
+      <header className={cn('App-header', isLight ? 'text-gray-900' : 'text-gray-100')}>
         <button onClick={goGithubSite}>
           <img src={chrome.runtime.getURL(logo)} className="App-logo" alt="logo" />
         </button>
@@ -43,7 +43,7 @@ const SidePanel = () => {
           Edit <code>pages/side-panel/src/SidePanel.tsx</code>
         </p>
         <ToggleButton onClick={exampleThemeStorage.toggle}>{t('toggleTheme')}</ToggleButton>
-      </header> */}
+      </header>
       <div style={{ padding: 24, background: '#f8fafc', minHeight: '100vh' }}>
         <h2 style={{ marginBottom: 16 }}>已复制答案</h2>
         <ul style={{ listStyle: 'decimal', paddingLeft: 24, margin: 0 }}>
