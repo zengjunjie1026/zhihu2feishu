@@ -49,12 +49,12 @@ const manifest = {
   },
   content_scripts: [
     {
-      matches: ['*://*.zhihu.com/*'],
+      matches: ['https://www.zhihu.com/question/*'],
       js: ['content/all.iife.js'],
       run_at: 'document_idle',
     },
     {
-      matches: ['*://*.zhihu.com/*'],
+      matches: ['https://www.zhihu.com/question/*'],
       js: ['content-runtime/zhihu.iife.js'],
       run_at: 'document_idle',
     },
