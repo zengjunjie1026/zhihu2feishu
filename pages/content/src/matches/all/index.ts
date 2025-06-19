@@ -27,15 +27,13 @@ btn.onmouseleave = () => btn.style.opacity = '0.9';
 btn.onclick = async () => {
   try {
     const answerEls = document.querySelectorAll('.AnswerItem');
-    let allText = '';
     const answers: string[] = [];
     answerEls.forEach(el => {
       const text = (el as HTMLElement).innerText;
-      allText += text + '\n\n';
       if (text.trim()) answers.push(text.trim());
     });
-    if (allText.trim()) {
-      await navigator.clipboard.writeText(allText.trim());
+    if (answers.length > 0) {
+      await navigator.clipboard.writeText(answers.join('\n\n'));
       chrome.storage.local.set({ zh_copied_answers: answers });
       btn.innerText = '已复制!';
       setTimeout(() => { btn.innerText = '复制答案'; }, 1500);
