@@ -35,7 +35,7 @@ const SidePanel = () => {
 
   return (
     <div className={cn('App', isLight ? 'bg-slate-50' : 'bg-gray-800')}>
-      <header className={cn('App-header', isLight ? 'text-gray-900' : 'text-gray-100')}>
+      {/* <header className={cn('App-header', isLight ? 'text-gray-900' : 'text-gray-100')}>
         <button onClick={goGithubSite}>
           <img src={chrome.runtime.getURL(logo)} className="App-logo" alt="logo" />
         </button>
@@ -43,19 +43,17 @@ const SidePanel = () => {
           Edit <code>pages/side-panel/src/SidePanel.tsx</code>
         </p>
         <ToggleButton onClick={exampleThemeStorage.toggle}>{t('toggleTheme')}</ToggleButton>
-      </header>
-      <div style={{ padding: 24 }}>
+      </header> */}
+      <div style={{ padding: 24, background: '#f8fafc', minHeight: '100vh' }}>
         <h2 style={{ marginBottom: 16 }}>已复制答案</h2>
-        <div style={{ maxHeight: 500, overflowY: 'auto', background: '#f8fafc', borderRadius: 8, padding: 16, boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
-          <ul style={{ listStyle: 'decimal', paddingLeft: 24, margin: 0 }}>
-            {answers.map((ans, idx) => (
-              <li key={idx} style={{ marginBottom: 18, padding: 12, background: '#fff', borderRadius: 6, boxShadow: '0 1px 4px rgba(0,0,0,0.03)' }}>
-                <div style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-all', fontSize: 15 }}>{ans}</div>
-              </li>
-            ))}
-          </ul>
-          {answers.length === 0 && <div style={{ color: '#888', textAlign: 'center', marginTop: 32 }}>暂无已复制答案</div>}
-        </div>
+        <ul style={{ listStyle: 'decimal', paddingLeft: 24, margin: 0 }}>
+          {answers.map((ans, idx) => (
+            <li key={idx} style={{ marginBottom: 18, padding: 12, background: '#fff', borderRadius: 6, boxShadow: '0 1px 4px rgba(0,0,0,0.03)', textAlign: 'left', fontSize: 15, wordBreak: 'break-all', whiteSpace: 'pre-wrap' }}>
+              {ans}
+            </li>
+          ))}
+        </ul>
+        {answers.length === 0 && <div style={{ color: '#888', textAlign: 'center', marginTop: 32 }}>暂无已复制答案</div>}
       </div>
     </div>
   );

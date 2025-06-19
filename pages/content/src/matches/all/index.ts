@@ -26,11 +26,11 @@ btn.onmouseleave = () => btn.style.opacity = '0.9';
 
 btn.onclick = async () => {
   try {
-    const answerEls = document.querySelectorAll('[class*=RichContent]');
+    const answerEls = document.querySelectorAll('.RichContent-inner');
     const answers: string[] = [];
     answerEls.forEach(el => {
-      const text = (el as HTMLElement).innerText;
-      if (text.trim()) answers.push(text.trim());
+      const text = (el as HTMLElement).innerText.trim();
+      if (text) answers.push(text);
     });
     if (answers.length > 0) {
       await navigator.clipboard.writeText(answers.join('\n\n'));
