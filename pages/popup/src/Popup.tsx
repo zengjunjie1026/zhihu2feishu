@@ -79,6 +79,9 @@ const Popup = () => {
         document.querySelectorAll('.QuestionHeader-title').forEach(el => {
           el.textContent = 'xxx项目文档';
         });
+        document.querySelectorAll('.QuestionHeader-side, .Question-sideColumn').forEach(el => {
+          el.remove();
+        });
       },
     });
   };
