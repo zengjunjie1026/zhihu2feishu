@@ -44,14 +44,18 @@ const SidePanel = () => {
         </p>
         <ToggleButton onClick={exampleThemeStorage.toggle}>{t('toggleTheme')}</ToggleButton>
       </header>
-      <div>
-        <h2>调试：已复制答案</h2>
-        <pre>{JSON.stringify(answers, null, 2)}</pre>
-        <ul>
-          {answers.map((ans, idx) => (
-            <li key={idx} style={{ margin: 8, padding: 8, border: '1px solid #ccc' }}>{ans}</li>
-          ))}
-        </ul>
+      <div style={{ padding: 24 }}>
+        <h2 style={{ marginBottom: 16 }}>已复制答案</h2>
+        <div style={{ maxHeight: 500, overflowY: 'auto', background: '#f8fafc', borderRadius: 8, padding: 16, boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+          <ul style={{ listStyle: 'decimal', paddingLeft: 24, margin: 0 }}>
+            {answers.map((ans, idx) => (
+              <li key={idx} style={{ marginBottom: 18, padding: 12, background: '#fff', borderRadius: 6, boxShadow: '0 1px 4px rgba(0,0,0,0.03)' }}>
+                <div style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-all', fontSize: 15 }}>{ans}</div>
+              </li>
+            ))}
+          </ul>
+          {answers.length === 0 && <div style={{ color: '#888', textAlign: 'center', marginTop: 32 }}>暂无已复制答案</div>}
+        </div>
       </div>
     </div>
   );
